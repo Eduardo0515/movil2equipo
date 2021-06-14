@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_cerrada/src/pages/register.dart';
+import 'package:prueba_cerrada/src/pages/tab.dart';
 //import 'src/pages/register.dart';
 //import 'src/pages/home.dart';
 
@@ -86,11 +88,11 @@ class _State extends State<LoginPage> {
                     color: Color.fromRGBO(0, 176, 70, 69),
                     child: Text('Iniciar sesión', style: TextStyle(fontSize: 18)),
                     onPressed: () {
-                      /*Navigator.push(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
-                           builder: (context) => Home()),
-                      );*/                    
+                           builder: (context) => TabView()),
+                      );                   
                       },
                   )
                 ),
@@ -106,11 +108,11 @@ class _State extends State<LoginPage> {
                             style: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            /*print("Regístrate");
+                            print("Regístrate");
                             Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Register()),
-                            );*/
+                            MaterialPageRoute(builder: (context) => RegisterPage()),
+                            );
                           },
                         )
                       ],

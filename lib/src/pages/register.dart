@@ -5,6 +5,7 @@ import 'package:prueba_cerrada/src/models/Register.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:prueba_cerrada/src/pages/login.dart';
 
 class RegisterPage extends StatefulWidget {
   // Initially password is obscure
@@ -148,7 +149,7 @@ class _State extends State<RegisterPage> {
               shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(20.0)),
               textColor: Colors.white,
-              color: Colors.blue,
+              color: Color.fromRGBO(0, 176, 70, 69),
               child: Text('Registrarse', style: TextStyle(fontSize: 18)),
               onPressed: () {
                 print(nameController.text);
@@ -207,10 +208,10 @@ class _State extends State<RegisterPage> {
                   ),
                   onPressed: () {
                     print("Inicia sesión");
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => LoginPage()),
-                    // );
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(builder: (context) => LoginPage()),
+                     );
                   },
                 )
               ],
