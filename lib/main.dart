@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'src/pages/login.dart';
+=======
+import 'package:prueba_cerrada/src/pages/tab.dart';
+>>>>>>> 7d364d956b613a54cf17c77b5b701ebdbc0e4774
 
 void main() {
   runApp(MyApp());
@@ -23,7 +27,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: LoginPage(),
+=======
+      home: MyHomePage(
+        title: "Hello",
+      ),
+>>>>>>> 7d364d956b613a54cf17c77b5b701ebdbc0e4774
     );
   }
 }

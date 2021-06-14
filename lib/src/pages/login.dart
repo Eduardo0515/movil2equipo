@@ -83,15 +83,15 @@ class _State extends State<LoginPage> {
                   child: RaisedButton(
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
                     textColor: Colors.white,
-                    color: Colors.blue,
+                    color: Color.fromRGBO(0, 176, 70, 69),
                     child: Text('Iniciar sesión', style: TextStyle(fontSize: 18)),
                     onPressed: () {
                       /*Navigator.push(
                           context,
                           MaterialPageRoute(
                            builder: (context) => Home()),
-                      );*/
-                    },
+                      );*/                    
+                      },
                   )
                 ),
                   Container(
