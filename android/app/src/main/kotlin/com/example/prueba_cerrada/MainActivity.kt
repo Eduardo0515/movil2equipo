@@ -1,4 +1,4 @@
-package com.hugo.prueba_cerrada
+package com.chem.prueba_cerrada
 
 import io.flutter.embedding.android.FlutterActivity
 

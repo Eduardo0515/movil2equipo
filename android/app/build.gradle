@@ -40,7 +40,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.hugo.prueba_cerrada"
+        applicationId "com.chem.prueba_cerrada"
         minSdkVersion 16 //Recomendada
         targetSdkVersion 30
         versionCode 1 //Esto cambiará cada vez que se cree un nuevo deploy
