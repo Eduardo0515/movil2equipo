@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chem.prueba_cerrada">
 
+  <uses-permission android:name="android.permission.INTERNET" />
    <application
+        android:usesCleartextTraffic="true"
         android:label="prueba_cerrada"
         android:icon="@mipmap/ic_launcher">
         <activity

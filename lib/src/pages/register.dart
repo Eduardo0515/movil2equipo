@@ -14,23 +14,23 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _State extends State<RegisterPage> {
-  Future<List<Register>> registerFinal;
+  Future<Register> registerFinal;
   Register registerD;
 
-  Future<List<Register>> postRegister(
-      String user, String password1, String password2) async {
-    List<Register> registro = [];
-
-    String url = 'http://34.239.109.204/api/v1/registration/';
+  Future<Register> postRegister(
+      String user, String email, String password, String repeatPassword) async {
+    String url = 'http://192.168.43.89:3000/signup';
 
     Map<String, String> params = {
       "username": user,
-      "password1": password1,
-      "password2": password2
+      "email": email,
+      "password": password,
+      "repeatPassword": repeatPassword
     };
 
     Map<String, String> header = {
       HttpHeaders.contentTypeHeader: "application/json",
+      "Access-Control-Allow-Origin": "*",
     };
 
     Uri uri = Uri.parse(url);
@@ -41,46 +41,67 @@ class _State extends State<RegisterPage> {
     print(response.body);
     print(response.statusCode);
 
-    if (response.statusCode == 201) {
-      String body = utf8.decode(response.bodyBytes);
-      final jsonData = jsonDecode(body);
-
-      registro.add(Register(jsonData['token'], response.statusCode));
-      return registro;
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: 'Registro correcto',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.grey.shade700,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: response.body,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.grey.shade700,
+          textColor: Colors.white,
+          fontSize: 14.0);
     }
   }
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController1 = TextEditingController();
-  TextEditingController passwordController2 = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController repeatPasswordController = TextEditingController();
 
   bool hidePassword = true;
   bool isApiCallProcess = false;
   @override
   void initState() {
     super.initState();
-    //loginFinal = postLogin();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        /*appBar: AppBar(
-          title: Text('Login Screen App'),
-        ),*/
         body: SingleChildScrollView(
             child: Column(
       children: <Widget>[
-        SizedBox(height: 250),
+        SizedBox(height: 50),
         Container(
           padding: EdgeInsets.fromLTRB(60, 10, 60, 20),
           child: TextField(
             controller: nameController,
             decoration: InputDecoration(
+              prefixIcon: Icon(Icons.person),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+              labelText: 'Nombre de Usuario',
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(60, 10, 60, 20),
+          child: TextField(
+            controller: emailController,
+            decoration: InputDecoration(
               prefixIcon: Icon(Icons.email),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-              labelText: 'Usuario',
+              labelText: 'Correo',
             ),
           ),
         ),
@@ -90,7 +111,7 @@ class _State extends State<RegisterPage> {
             children: [
               TextField(
                 obscureText: hidePassword,
-                controller: passwordController1,
+                controller: passwordController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.lock),
                   border: OutlineInputBorder(
@@ -113,7 +134,7 @@ class _State extends State<RegisterPage> {
               ),
               TextField(
                 obscureText: hidePassword,
-                controller: passwordController2,
+                controller: repeatPasswordController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.lock),
                   border: OutlineInputBorder(
@@ -134,12 +155,8 @@ class _State extends State<RegisterPage> {
             ],
           ),
         ),
-        FlatButton(
-          onPressed: () {
-            //forgot password screen
-          },
-          textColor: Colors.blue,
-          //child: Text('Forgot Password'),
+        SizedBox(
+          height: 30,
         ),
         Container(
             height: 50,
@@ -153,46 +170,14 @@ class _State extends State<RegisterPage> {
               child: Text('Registrarse', style: TextStyle(fontSize: 18)),
               onPressed: () {
                 print(nameController.text);
-                print(passwordController1.text);
-                print(passwordController2.text);
-                registerFinal = postRegister(nameController.text,
-                    passwordController1.text, passwordController2.text);
-                registerFinal.then((value) => {
-                      print(value),
-                      print("AAAAAAA"),
-                      if (value == null)
-                        {
-                          print("ERROR - Revise los datos ingresados"),
-                          Fluttertoast.showToast(
-                              msg: 'Revise los datos ingresados',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIos: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 20.0)
-                        }
-                      else
-                        {
-                          print("OK - registro correcto"),
-                          print("Token user: "),
-                          print(value[0].token),
-                          registerD = Register(value[0].token, value[0].status),
-                          Fluttertoast.showToast(
-                              msg: 'Registro correcto',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIos: 1,
-                              backgroundColor: Colors.black,
-                              textColor: Colors.white,
-                              fontSize: 20.0),
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => LoginPage()),
-                          // ),
-                        }
-                    });
+                print(emailController.text);
+                print(passwordController.text);
+                print(repeatPasswordController.text);
+                registerFinal = postRegister(
+                    nameController.text,
+                    emailController.text,
+                    passwordController.text,
+                    repeatPasswordController.text);
               },
             )),
         Container(
@@ -208,10 +193,10 @@ class _State extends State<RegisterPage> {
                   ),
                   onPressed: () {
                     print("Inicia sesión");
-                     Navigator.push(
-                       context,
-                       MaterialPageRoute(builder: (context) => LoginPage()),
-                     );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                 )
               ],
