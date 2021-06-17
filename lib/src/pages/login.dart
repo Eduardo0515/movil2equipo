@@ -1,6 +1,12 @@
+import 'package:http/http.dart' as http; 
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:prueba_cerrada/src/pages/register.dart';
 import 'package:prueba_cerrada/src/pages/tab.dart';
+import 'package:prueba_cerrada/src/models/Login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 //import 'src/pages/register.dart';
 //import 'src/pages/home.dart';
 
@@ -12,13 +18,43 @@ class LoginPage extends StatefulWidget {
 }
 
 class _State extends State<LoginPage> {
+  Future<List<Login>> loginFinal;
+  Login loginD;
+
+  Future<List<Login>> postLogin(String username, String password) async{
+    List<Login> login = [];
+
+    String url = 'http://localhost:3000/signin';
+
+    Map<String, String> params = {
+      "username" : username,
+      "password" : password
+    };
+
+    Map<String, String> header = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+
+    Uri uri = Uri.parse(url);
+
+    final response = await http.post(uri, headers:header, body:jsonEncode(params));
+
+    if(response.statusCode == 200 || response.statusCode == 404 || response.statusCode == 401 ){
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
+
+      login.add(Login(jsonData['auth'],jsonData['token']));
+      return login;
+    }
+  }
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   bool hidePassword = true;
   bool isApiCallProcess = false;
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  //GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  //final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -88,12 +124,29 @@ class _State extends State<LoginPage> {
                     color: Color.fromRGBO(0, 176, 70, 69),
                     child: Text('Iniciar sesión', style: TextStyle(fontSize: 18)),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                           builder: (context) => TabView()),
-                      );                   
-                      },
+                      //print(nameController.text);
+                      //print(passwordController.text);
+                      loginFinal = postLogin(nameController.text, passwordController.text);
+                      loginFinal.then((value) => {
+                        if(value[0].auth == true){
+                          print("LOGIN CORRECTO"),
+                          print(value[0].auth),
+                          print(value[0].token),
+                          
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                            builder: (context) => TabView(
+                          )),
+                          ),
+                        }else{
+                          print("ERROR - El usuario o contraseña son incorrectos"),
+                          print("Revise los datos ingresados"),
+                          _showAlertDialog()
+                    
+                        }
+                      });
+                    },
                   )
                 ),
                   Container(
@@ -122,6 +175,23 @@ class _State extends State<LoginPage> {
               ],
             )
       )
+    );
+  }
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (buildcontext) {
+        return AlertDialog(
+          title: Text("ERROR"),
+          content: Text("El usuario o contraseña son incorrectos"),
+          actions: <Widget>[
+            RaisedButton(
+              child: Text("CERRAR", style: TextStyle(color: Colors.black),),
+              onPressed: (){ Navigator.of(context).pop(); },
+            )
+          ],
+        );
+      }
     );
   }
 }
