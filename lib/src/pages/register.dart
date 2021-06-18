@@ -77,132 +77,137 @@ class _State extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Column(
-      children: <Widget>[
-        SizedBox(height: 50),
-        Container(
-          padding: EdgeInsets.fromLTRB(60, 10, 60, 20),
-          child: TextField(
-            controller: nameController,
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.person),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-              labelText: 'Nombre de Usuario',
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(60, 10, 60, 20),
-          child: TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.email),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-              labelText: 'Correo',
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+        body: Center(
+      child: SingleChildScrollView(
           child: Column(
-            children: [
-              TextField(
-                obscureText: hidePassword,
-                controller: passwordController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  labelText: 'Contraseña',
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        hidePassword = !hidePassword;
-                      });
-                    },
-                    color: Theme.of(context).accentColor.withOpacity(0.9),
-                    icon: Icon(
-                        hidePassword ? Icons.visibility_off : Icons.visibility),
-                  ),
-                ),
+        children: <Widget>[
+          SizedBox(height: 50),
+          Container(
+            padding: EdgeInsets.fromLTRB(60, 10, 60, 20),
+            child: TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                labelText: 'Nombre de Usuario',
               ),
-              SizedBox(
-                height: 25,
-              ),
-              TextField(
-                obscureText: hidePassword,
-                controller: repeatPasswordController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  labelText: 'Confirmar contraseña',
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        hidePassword = !hidePassword;
-                      });
-                    },
-                    color: Theme.of(context).accentColor.withOpacity(0.9),
-                    icon: Icon(
-                        hidePassword ? Icons.visibility_off : Icons.visibility),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Container(
-            height: 50,
-            width: 310,
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: RaisedButton(
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0)),
-              textColor: Colors.white,
-              color: Color.fromRGBO(0, 176, 70, 69),
-              child: Text('Registrarse', style: TextStyle(fontSize: 18)),
-              onPressed: () {
-                print(nameController.text);
-                print(emailController.text);
-                print(passwordController.text);
-                print(repeatPasswordController.text);
-                registerFinal = postRegister(
-                    nameController.text,
-                    emailController.text,
-                    passwordController.text,
-                    repeatPasswordController.text);
-              },
-            )),
-        Container(
-            padding: EdgeInsets.all(30),
-            child: Row(
-              children: <Widget>[
-                Text('¿Ya tienes una cuenta?', style: TextStyle(fontSize: 14)),
-                FlatButton(
-                  textColor: Colors.blue,
-                  child: Text(
-                    'Inicia sesión',
-                    style: TextStyle(fontSize: 20),
+          Container(
+            padding: EdgeInsets.fromLTRB(60, 10, 60, 20),
+            child: TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                labelText: 'Correo',
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
+            child: Column(
+              children: [
+                TextField(
+                  obscureText: hidePassword,
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    labelText: 'Contraseña',
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      color: Theme.of(context).accentColor.withOpacity(0.9),
+                      icon: Icon(hidePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    ),
                   ),
-                  onPressed: () {
-                    print("Inicia sesión");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
-                  },
-                )
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                TextField(
+                  obscureText: hidePassword,
+                  controller: repeatPasswordController,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    labelText: 'Confirmar contraseña',
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      color: Theme.of(context).accentColor.withOpacity(0.9),
+                      icon: Icon(hidePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    ),
+                  ),
+                ),
               ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ))
-      ],
-    )));
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+              height: 50,
+              width: 310,
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: RaisedButton(
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(20.0)),
+                textColor: Colors.white,
+                color: Color.fromRGBO(0, 176, 70, 69),
+                child: Text('Registrarse', style: TextStyle(fontSize: 18)),
+                onPressed: () {
+                  print(nameController.text);
+                  print(emailController.text);
+                  print(passwordController.text);
+                  print(repeatPasswordController.text);
+                  registerFinal = postRegister(
+                      nameController.text,
+                      emailController.text,
+                      passwordController.text,
+                      repeatPasswordController.text);
+                },
+              )),
+          Container(
+              padding: EdgeInsets.all(30),
+              child: Row(
+                children: <Widget>[
+                  Text('¿Ya tienes una cuenta?',
+                      style: TextStyle(fontSize: 14)),
+                  FlatButton(
+                    textColor: Colors.blue,
+                    child: Text(
+                      'Inicia sesión',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      print("Inicia sesión");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    },
+                  )
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ))
+        ],
+      )),
+    ));
   }
 }
