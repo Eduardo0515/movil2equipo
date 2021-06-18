@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:prueba_cerrada/src/models/Login.dart';
 import 'package:prueba_cerrada/src/models/Register.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -51,6 +50,10 @@ class _State extends State<RegisterPage> {
           backgroundColor: Colors.grey.shade700,
           textColor: Colors.white,
           fontSize: 14.0);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
     } else {
       Fluttertoast.showToast(
           msg: response.body,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'src/pages/login.dart';
-import 'package:prueba_cerrada/src/pages/tab.dart';
 
 void main() {
   runApp(MyApp());
