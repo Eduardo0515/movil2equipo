@@ -43,8 +43,8 @@ android {
         applicationId "com.chem.prueba_cerrada"
         minSdkVersion 16 //Recomendada
         targetSdkVersion 30
-        versionCode 1 //Esto cambiará cada vez que se cree un nuevo deploy
-        versionName "1.0.0" //{Versión nueva vista o componente(funcion)}{actualización}{corrección de errores}
+        versionCode 2 //Esto cambiará cada vez que se cree un nuevo deploy
+        versionName "1.0.1" //{Versión nueva vista o componente(funcion)}{actualización}{corrección de errores}
     }
 
     signingConfigs {

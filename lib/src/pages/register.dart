@@ -19,7 +19,7 @@ class _State extends State<RegisterPage> {
 
   Future<Register> postRegister(
       String user, String email, String password, String repeatPassword) async {
-    String url = 'http://192.168.43.89:3000/signup';
+    String url = 'http://192.168.0.104:3000/signup';
 
     Map<String, String> params = {
       "username": user,
