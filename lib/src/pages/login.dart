@@ -24,7 +24,7 @@ class _State extends State<LoginPage> {
   Future<List<Login>> postLogin(String username, String password) async {
     List<Login> login = [];
 
-    String url = 'http://192.168.0.104:3000/signin';
+    String url = 'https://secret-waters-25495.herokuapp.com/signin';
 
     Map<String, String> params = {"username": username, "password": password};
 

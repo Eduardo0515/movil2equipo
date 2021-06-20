@@ -19,7 +19,7 @@ class _State extends State<RegisterPage> {
 
   Future<Register> postRegister(
       String user, String email, String password, String repeatPassword) async {
-    String url = 'http://192.168.0.104:3000/signup';
+    String url = 'https://secret-waters-25495.herokuapp.com/signup';
 
     Map<String, String> params = {
       "username": user,
@@ -42,14 +42,7 @@ class _State extends State<RegisterPage> {
     print(response.statusCode);
 
     if (response.statusCode == 200) {
-      Fluttertoast.showToast(
-          msg: 'Registro correcto',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 1,
-          backgroundColor: Colors.grey.shade700,
-          textColor: Colors.white,
-          fontSize: 14.0);
+      
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),
